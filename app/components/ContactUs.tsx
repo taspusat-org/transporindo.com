@@ -119,9 +119,10 @@ export default function ContactSection() {
 
     const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
     const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const autoReplyID = process.env.NEXT_PUBLIC_EMAILJS_AUTOREPLY_ID;
     const userID = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
-    if (!serviceID || !templateID || !userID) {
+    if (!serviceID || !templateID || !autoReplyID || !userID) {
       toast.error("Configuration error. Please contact support.");
       return;
     }
@@ -134,10 +135,16 @@ export default function ContactSection() {
 
     setIsSubmitting(true);
 
+    // Admin email promise
+    const sendToAdmin = emailjs.send(serviceID, templateID, emailParams, userID);
+
+    // Auto-reply email promise
+    const sendToUser = emailjs.send(serviceID, autoReplyID, emailParams, userID);
+
     toast
-      .promise(emailjs.send(serviceID, templateID, emailParams, userID), {
+      .promise(Promise.all([sendToAdmin, sendToUser]), {
         pending: "Sending your message...",
-        success: "Message sent successfully!",
+        success: "Message sent! Check your inbox for confirmation.",
         error: "Failed to send message. Please try again later.",
       })
       .then(() => {
