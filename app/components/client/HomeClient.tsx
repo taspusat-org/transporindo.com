@@ -1,42 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { motion } from "motion/react";
 
-type HomeData = {
+type HomeClientProps = {
   title?: string;
   description?: string;
   image1?: string;
   image2?: string;
 };
 
-export default function Home() {
-  const [homeData, setHomeData] = useState<HomeData | null>(null);
-  const pathname = usePathname();
-  const locale = pathname?.split("/")[1] || "id";
-
-  useEffect(() => {
-    const fetchHomeData = async () => {
-      try {
-        const query = `*[_type == "home" && language == $locale][0] { 
-          title, 
-          description, 
-          "image1": image1, 
-          "image2": image2 
-        }`;
-        const data = await client.fetch(query, { locale });
-        setHomeData(data);
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-      }
-    };
-    fetchHomeData();
-  }, [locale]);
-
+export default function HomeClient({ data }: { data: HomeClientProps }) {
   return (
     <section className="bg-slate-50 overflow-hidden">
       <div className="flex flex-col lg:flex-row items-center justify-between w-full py-24 lg:py-12">
@@ -56,18 +31,18 @@ export default function Home() {
           }}
         >
           <div className="relative w-[350px] h-[220px] md:w-[400px] md:h-[260px]">
-            {homeData?.image1 && (
+            {data?.image1 && (
               <Image
                 width={350}
                 height={250}
-                src={urlFor(homeData.image1).url()}
-                alt="A placeholder image"
+                src={urlFor(data.image1).url()}
+                alt="Main image"
                 className="absolute top-0 left-0 rounded-xl filter drop-shadow-lg z-10"
                 style={{ boxShadow: "0 8px 24px rgba(0,0,0,0.15)" }}
               />
             )}
 
-            {homeData?.image2 && (
+            {data?.image2 && (
               <motion.div
                 initial={{ opacity: 0, x: 20, y: 20 }}
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
@@ -78,8 +53,8 @@ export default function Home() {
                 <Image
                   width={350}
                   height={250}
-                  src={urlFor(homeData.image2).url()}
-                  alt="A placeholder image"
+                  src={urlFor(data.image2).url()}
+                  alt="Secondary image"
                   className="rounded-xl filter drop-shadow-lg"
                   style={{ boxShadow: "0 8px 24px rgba(0,0,0,0.15)" }}
                 />
@@ -104,9 +79,9 @@ export default function Home() {
           }}
         >
           <div className="flex flex-col items-center lg:items-start">
-            <span className="font-semibold text-center lg:text-left text-[23px]">{homeData?.title}</span>
+            <span className="font-semibold text-center lg:text-left text-[23px]">{data?.title}</span>
             <br />
-            <span className="text-center lg:text-left">{homeData?.description}</span>
+            <span className="text-center lg:text-left">{data?.description}</span>
           </div>
         </motion.div>
       </div>

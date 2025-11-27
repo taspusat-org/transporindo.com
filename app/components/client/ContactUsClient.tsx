@@ -1,23 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+
 import { Phone, MapPin, ExternalLink } from "lucide-react";
-import { usePathname } from "next/navigation";
-import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { motion } from "motion/react";
-
-type ContactSettings = {
-  _id: string;
-  _type: "contactsettings";
-  title?: string;
-  description?: string;
-  emailIcon?: any;
-  emailTitle?: string;
-  email?: string;
-  officeIcon?: any;
-  officeTitle?: string;
-  offices?: OfficeItem[];
-};
 
 type OfficeItem = {
   _key: string;
@@ -25,6 +10,14 @@ type OfficeItem = {
   address?: string;
   phoneNum?: string;
   mapURL?: string;
+};
+
+type ContactUSClientProps = {
+  title?: string;
+  description?: string;
+  officeIcon?: any;
+  officeTitle?: string;
+  offices?: OfficeItem[];
 };
 
 const staggerContainer = {
@@ -38,41 +31,7 @@ const staggerContainer = {
   },
 };
 
-export default function ContactSection() {
-  const [contactUs, setContactUs] = useState<ContactSettings | null>(null);
-  const pathname = usePathname();
-  const locale = pathname?.split("/")[1] || "id";
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const query = `*[_type == "contactsettings" && language == $locale][0] {
-            _id,
-            _type,
-            title,
-            description,
-            emailTitle,
-            email,
-            emailIcon,
-            officeTitle,
-            officeIcon,
-            offices[] {
-              _key,
-              city,
-              address,
-              phoneNum,
-              mapURL
-            }
-          }`;
-        const data = await client.fetch(query, { locale });
-        setContactUs(data);
-      } catch (error) {
-        console.log("Error fetching data: ", error);
-      }
-    };
-    fetchData();
-  }, [locale]);
-
+export default function ContactUsClient({ data }: { data: ContactUSClientProps }) {
   return (
     <section
       id="contact-us"
@@ -94,8 +53,8 @@ export default function ContactSection() {
             },
           }}
         >
-          <h2 className="text-3xl font-bold tracking-tight text-black">{contactUs?.title}</h2>
-          {contactUs?.description && <p className="text-slate-600 mt-2">{contactUs?.description}</p>}
+          <h2 className="text-3xl font-bold tracking-tight text-black">{data?.title}</h2>
+          {data?.description && <p className="text-slate-600 mt-2">{data?.description}</p>}
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
@@ -105,7 +64,7 @@ export default function ContactSection() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            variants={staggerContainer} // Trigger stagger for children
+            variants={staggerContainer as any}
           >
             {/* 2. OFFICES SECTION */}
             <motion.div
@@ -121,8 +80,8 @@ export default function ContactSection() {
             >
               {/* Icon Column */}
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white shadow-sm overflow-hidden mx-auto sm:mx-0">
-                {contactUs?.officeIcon ? (
-                  <img src={urlFor(contactUs.officeIcon).url()} alt="Office Icon" className="w-6 h-6 object-contain" />
+                {data?.officeIcon ? (
+                  <img src={urlFor(data.officeIcon).url()} alt="Office Icon" className="w-6 h-6 object-contain" />
                 ) : (
                   <MapPin className="h-6 w-6 text-black" />
                 )}
@@ -130,19 +89,19 @@ export default function ContactSection() {
 
               {/* Content Column */}
               <div className="flex-1 w-full text-center sm:text-left">
-                <h3 className="text-lg font-bold text-black mb-3">{contactUs?.officeTitle || "Our Offices"}</h3>
+                <h3 className="text-lg font-bold text-black mb-3">{data?.officeTitle || "Our Offices"}</h3>
 
-                {contactUs?.offices && contactUs.offices.length > 0 ? (
+                {data?.offices && data.offices.length > 0 ? (
                   <motion.div
                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm text-gray-600 justify-items-center w-full"
-                    variants={staggerContainer}
+                    variants={staggerContainer as any}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
                   >
-                    {contactUs.offices.map((office, idx) => (
+                    {data.offices.map((office: OfficeItem, idx: number) => (
                       <motion.div
-                        key={idx}
+                        key={office._key || idx}
                         variants={{
                           hidden: { opacity: 0, scale: 0.9 },
                           visible: {

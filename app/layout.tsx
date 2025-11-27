@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { defaultMetadata } from "@/lib/metadata";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,10 +13,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Transporindo | Cargo & Freight Forwarder",
-  description: "Logistics for your needs",
-};
+export const metadata: Metadata = defaultMetadata;
 
 export default function RootLayout({
   children,

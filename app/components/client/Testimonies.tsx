@@ -1,20 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Quote } from "lucide-react";
-import { client } from "@/sanity/lib/client";
-import { usePathname } from "next/navigation";
 import { urlFor } from "@/sanity/lib/image";
 import { StarRating } from "@/components/star-rating";
 import { motion } from "framer-motion";
-
-type TestimonyData = {
-  smallHeading: string;
-  bigHeading: string;
-  description: string;
-  testimonylist: TestimonyList[];
-};
 
 type TestimonyList = {
   name: string;
@@ -23,6 +13,13 @@ type TestimonyList = {
   logo: string;
   rating: number;
   content: string;
+};
+
+type TestimonyProps = {
+  smallHeading: string;
+  bigHeading: string;
+  description: string;
+  testimonylist: TestimonyList[];
 };
 
 const gridVariants = {
@@ -35,37 +32,9 @@ const gridVariants = {
   },
 };
 
-export default function TestimonialPage() {
-  const [testimonialData, setTestimonialData] = useState<TestimonyData | null>(null);
-  const pathname = usePathname();
-  const locale = pathname?.split("/")[1] || "id";
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const query = `*[_type == "testimonials" && language == $locale][0] { 
-            smallHeading, 
-            bigHeading, 
-            description, 
-            testimonylist[] { 
-              name, 
-              logo, 
-              role, 
-              company, 
-              rating, 
-              content 
-            } 
-          }`;
-        const data = await client.fetch(query, { locale });
-        setTestimonialData(data);
-      } catch (error) {
-        console.error("Error fetching testimonials data: ", error);
-      }
-    };
-    fetchData();
-  }, [locale]);
-
-  if (!testimonialData) return null;
+export default function Testimonies({ data }: { data: TestimonyProps }) {
+  if (!data) return null;
+  const testimonialData = data;
 
   return (
     <section id="testimony" className="bg-slate-50 py-12 sm:py-12 overflow-hidden">
@@ -100,7 +69,7 @@ export default function TestimonialPage() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
         >
-          {testimonialData?.testimonylist?.map((testimonial, idx) => (
+          {testimonialData?.testimonylist?.map((testimonial: TestimonyList, idx: number) => (
             <motion.div
               key={idx}
               variants={{

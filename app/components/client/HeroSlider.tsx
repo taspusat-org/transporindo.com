@@ -1,9 +1,7 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { client } from "../../sanity/lib/client";
-import { urlFor } from "../../sanity/lib/image";
-import { usePathname } from "next/navigation";
+import { useRef, useState, useEffect } from "react";
+import { urlFor } from "@/sanity/lib/image";
 import { motion } from "motion/react";
 
 type Slide = {
@@ -15,45 +13,34 @@ type Slide = {
   order?: number;
 };
 
-export default function HeroSlider() {
-  const [slides, setSlides] = useState<Slide[]>([]);
+export default function HeroSlider({ slides: initialSlides }: { slides: Slide[] }) {
   const [index, setIndex] = useState(0);
   const timerRef = useRef<number | null>(null);
-  const pathname = usePathname();
-  const locale = pathname?.split("/")[1] || "id";
+  const slides = initialSlides.sort((a, b) => (a.order || 0) - (b.order || 0));
 
   useEffect(() => {
-    const query = `*[_type == "hero" && language == $locale][0]{title, slides[]{image, heading, subheading, ctaText, ctaUrl, order}}`;
-    client.fetch(query, { locale }).then((data: any) => {
-      const s: Slide[] = (data?.slides || []).sort((a: Slide, b: Slide) => (a.order || 0) - (b.order || 0));
-      setSlides(s);
-    });
-  }, [locale]);
-
-  useEffect(() => {
-    // autoplay
     if (slides.length <= 1) return;
     if (timerRef.current) window.clearInterval(timerRef.current);
     timerRef.current = window.setInterval(() => {
-      setIndex((i) => (slides.length ? (i + 1) % slides.length : 0));
+      setIndex((i) => (i + 1) % slides.length);
     }, 5000);
     return () => {
       if (timerRef.current) window.clearInterval(timerRef.current);
     };
-  }, [slides]);
+  }, [slides.length]);
 
   function prev() {
-    setIndex((i) => (slides.length ? (i - 1 + slides.length) % slides.length : 0));
+    setIndex((i) => (i - 1 + slides.length) % slides.length);
   }
 
   function next() {
-    setIndex((i) => (slides.length ? (i + 1) % slides.length : 0));
+    setIndex((i) => (i + 1) % slides.length);
   }
 
   if (!slides.length) {
     return (
       <section className="w-full bg-zinc-50 py-16">
-        <div className="mx-auto max-w-6xl px-6">Loading hero...</div>
+        <div className="mx-auto max-w-6xl px-6">No slides available</div>
       </section>
     );
   }

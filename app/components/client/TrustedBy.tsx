@@ -1,43 +1,19 @@
 "use client";
 
-import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-
-type TrustedByData = {
-  title: string;
-  companyList: CompanyList[];
-};
 
 type CompanyList = {
   logo: any;
   name: string;
 };
 
-export default function TrustedBy() {
-  const [trustedByData, setTrustedByData] = useState<TrustedByData | null>(null);
-  const pathname = usePathname();
-  const locale = pathname?.split("/")[1] || "id";
+type TrustedByProps = {
+  title: string;
+  companyList: CompanyList[];
+};
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const query = `*[_type == "trustedby" && language == $locale][0]{
-            title,
-            companyList[]{
-              logo,
-              name
-            },
-          }`;
-        const data = await client.fetch(query, { locale });
-        setTrustedByData(data);
-      } catch (error) {
-        console.log("Error fetching data: ", error);
-      }
-    };
-    fetchData();
-  }, [locale]);
+export default function TrustedBy({ data }: { data: TrustedByProps }) {
+  const trustedByData = data;
 
   return (
     <section className="bg-white py-12 sm:py-16">

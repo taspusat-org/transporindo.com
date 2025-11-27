@@ -1,21 +1,19 @@
 "use client";
 
-import { client } from "@/sanity/lib/client";
-import { usePathname } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
+import { useRef } from "react";
 import { motion, useMotionValue, useTransform, animate, useInView } from "framer-motion";
-
-type GlobalReachData = {
-  title: String;
-  globalReach: GlobalReachList[];
-};
+import { useEffect } from "react";
 
 type GlobalReachList = {
   value: number;
   label: String;
 };
 
-// --- FIXED COUNTER COMPONENT ---
+type GlobalReachProps = {
+  title: String;
+  globalReach: GlobalReachList[];
+};
+
 const Counter = ({ value }: { value: number }) => {
   const nodeRef = useRef<HTMLSpanElement>(null);
   const isInView = useInView(nodeRef, { once: true, amount: 0.5 });
@@ -44,31 +42,9 @@ const Counter = ({ value }: { value: number }) => {
   }, [roundedValue]);
   return <span ref={nodeRef}>0</span>;
 };
-// -------------------------------
 
-export default function GlobalReach() {
-  const [globalReachData, setGlobalReachData] = useState<GlobalReachData | null>(null);
-  const pathname = usePathname();
-  const locale = pathname?.split("/")[1] || "id";
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const query = `*[_type == "globalReach" && language == $locale][0]{ 
-            title, 
-            globalReach[]{ 
-              value, 
-              label, 
-            } 
-          }`;
-        const data = await client.fetch(query, { locale });
-        setGlobalReachData(data);
-      } catch (error) {
-        console.log("Error fetching data: ", error);
-      }
-    };
-    fetchData();
-  }, [locale]);
+export default function GlobalReach({ data }: { data: GlobalReachProps }) {
+  const globalReachData = data;
 
   return (
     <section id="achievements" className="w-full pt-12">

@@ -1,18 +1,8 @@
 "use client";
 
-import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { motion } from "motion/react"; // Import motion
-
-type CategoryData = {
-  title: String;
-  heading: String;
-  categoriesList: CategoryList[];
-  image: String;
-};
+import { motion } from "motion/react";
 
 type CategoryList = {
   icon: any;
@@ -20,42 +10,25 @@ type CategoryList = {
   description: String;
 };
 
-export default function Categories() {
-  const [categoryData, setCategoryData] = useState<CategoryData | null>(null);
-  const pathname = usePathname();
-  const locale = pathname?.split("/")[1] || "id";
+type CategoriesProps = {
+  title: String;
+  heading: String;
+  categoriesList: CategoryList[];
+  image: String;
+};
 
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-      },
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
     },
-  };
+  },
+};
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const query = `*[_type == "categories" && (language == $locale)][0]{ 
-              title, 
-              heading, 
-              categoriesList[]{ 
-                icon, 
-                title, 
-                description 
-              }, 
-              image 
-            }`;
-        const data = await client.fetch(query, { locale });
-        setCategoryData(data);
-      } catch (error) {
-        console.error("Error fetching categories data: ", error);
-      }
-    };
-    fetchData();
-  }, [locale]);
+export default function Categories({ data }: { data: CategoriesProps }) {
+  const categoryData = data;
 
   return (
     <>
@@ -98,11 +71,11 @@ export default function Categories() {
               }}
             >
               <Image
-                src={urlFor(categoryData.image).url()}
-                alt="Category Image"
-                width={300}
-                height={300}
-                className="rounded-2xl shadow-2xl object-cover"
+                src={urlFor(categoryData.image).width(400).height(400).url()}
+                alt="Categories"
+                width={400}
+                height={400}
+                className="rounded-lg shadow-lg object-cover"
               />
             </motion.div>
           )}

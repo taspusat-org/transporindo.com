@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
 import Image from "next/image";
-import Footer from "@/app/components/Footer";
+import Footer from "@/app/components/client/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
