@@ -32,7 +32,7 @@ export default function TrustedBy({ data }: { data: TrustedByProps }) {
             {trustedByData?.companyList?.map((company, index) => (
               <div
                 key={`original-${index}`}
-                className="flex items-center justify-center h-12 w-[150px] shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"
+                className="flex items-center justify-center h-24 w-[150px] shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"
               >
                 {company.logo ? (
                   <img
@@ -50,7 +50,7 @@ export default function TrustedBy({ data }: { data: TrustedByProps }) {
             {trustedByData?.companyList?.map((company, index) => (
               <div
                 key={`duplicate-${index}`}
-                className="flex items-center justify-center h-12 w-[150px] shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"
+                className="flex items-center justify-center h-24 w-[150px] shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"
               >
                 {company.logo ? (
                   <img
