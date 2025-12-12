@@ -137,7 +137,7 @@ export default function Testimonies({ data }: { data: TestimonyProps }) {
           >
             <motion.button
               onClick={() => setShowAll(!showAll)}
-              className="group relative inline-flex items-center gap-2 px-8 py-3 bg-white border-2 border-slate-200 text-foreground font-semibold rounded-full shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
+              className="group relative inline-flex items-center cursor-pointer gap-2 px-8 py-3 bg-white border-2 border-slate-200 text-foreground font-semibold rounded-full shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
