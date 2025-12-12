@@ -4,24 +4,17 @@ import { useMemo, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { Switch } from "@/components/ui/switch";
 
 export default function NavbarForError() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const queryString = searchParams?.toString();
 
   const normalizedPath = pathname || "/";
   const supportedLocales = ["en", "id"] as const;
   const localeSegment = normalizedPath.split("/")[1];
   const hasLocalePrefix = supportedLocales.includes(localeSegment as (typeof supportedLocales)[number]);
   const locale = (hasLocalePrefix ? localeSegment : "id") as "en" | "id";
-
-  const restPathRaw = hasLocalePrefix ? normalizedPath.slice(localeSegment.length + 1) || "/" : normalizedPath;
-  const restPath = restPathRaw.startsWith("/") ? restPathRaw : `/${restPathRaw}`;
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     const href = e.currentTarget.href;
