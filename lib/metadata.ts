@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-const DOMAIN = "https://transporindo.id";
+const DOMAIN = "https://transporindo.com";
 
 export const localeMetadata: Record<string, { title: string; description: string; keywords: string }> = {
   id: {

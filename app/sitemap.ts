@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-const DOMAIN = "https://transporindo.id";
+const DOMAIN = "https://transporindo.com";
 const LOCALES = ["id", "en"];
 
 export default function sitemap(): MetadataRoute.Sitemap {

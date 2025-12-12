@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/studio/", "/*.json$"],
     },
-    sitemap: "https://transporindo.id/sitemap.xml",
+    sitemap: "https://transporindo.com/sitemap.xml",
   };
 }
