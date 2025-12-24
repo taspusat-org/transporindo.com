@@ -21,7 +21,9 @@ export { generateMetadata };
 export default function Page({ params }: { params: Promise<{ locale: string }> }) {
   return (
     <div className={inter.className}>
-      <Navbar />
+      <Suspense fallback={<div className="w-full h-screen bg-zinc-50" />}>
+        <Navbar />
+      </Suspense>
       <Suspense fallback={<div className="w-full h-screen bg-zinc-50" />}>
         <HeroSliderServer params={params} />
       </Suspense>

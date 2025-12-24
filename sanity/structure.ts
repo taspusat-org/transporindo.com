@@ -68,4 +68,14 @@ export const structure: StructureResolver = (S) =>
             .schemaType('contactsettings')
             .documentId('contactsettings')
         ),
+
+        S.divider(),
+
+        S.listItem()
+        .title('Blog Posts')
+        .schemaType('post')
+        .child(
+          S.documentTypeList('post')
+            .title('All Posts')
+        ),  
     ]);
