@@ -46,7 +46,7 @@ export default function Services({ data }: { data: ServicesProps }) {
       <span className="font-bold text-[35px] text-center mx-8">{data?.title}</span>
 
       <motion.div
-        className="mt-10 grid w-full max-w-6xl gap-8 px-6 md:grid-cols-2 lg:grid-cols-3 items-start"
+        className="mt-10 grid w-full max-w-6xl gap-8 px-16 md:grid-cols-2 lg:grid-cols-3 items-start"
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"

@@ -81,7 +81,7 @@ export default function HomeClient({ data }: { data: HomeClientProps }) {
           <div className="flex flex-col items-center lg:items-start">
             <span className="font-semibold text-center lg:text-left text-[23px]">{data?.title}</span>
             <br />
-            <span className="text-center lg:text-left">{data?.description}</span>
+            <span className="text-center lg:text-left mx-16 md:mx-12 lg:mx-0">{data?.description}</span>
           </div>
         </motion.div>
       </div>

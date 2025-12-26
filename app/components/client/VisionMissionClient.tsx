@@ -29,7 +29,7 @@ export default function VisionMissionClient({ data }: { data: VisionMissionProps
   return (
     <section className="w-full py-16 bg-white">
       <div className="container mx-auto px-6 lg:px-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mx-16 lg:mx-0">
           {/* Vision */}
           {data.vision && (
             <motion.div
