@@ -1,6 +1,13 @@
 import type {StructureResolver} from 'sanity/structure'
 
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
+
+// Note: Untuk developer" yang handle source code ini, setiap kali ingin membuat komponen baru 
+// (yang berhubungan dengan Sanity CMS), diharapkan untuk mengubah:
+// 1. structure.ts
+// 2. sanity.config.tsx
+// 3. index.ts
+
 export const structure: StructureResolver = (S) =>
   S.list()
     .title('Content')
