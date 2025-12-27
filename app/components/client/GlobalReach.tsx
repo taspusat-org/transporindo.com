@@ -51,7 +51,7 @@ export default function GlobalReach({ data }: { data: GlobalReachProps }) {
       {/* Top Orange Bar */}
       <div className="h-4 bg-orange-500"></div>
 
-      <div className="bg-neutral-800 text-white py-20">
+      <div className="bg-neutral-800 text-white py-20 px-16 md:px-8 lg:px-0">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}

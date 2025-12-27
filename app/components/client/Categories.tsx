@@ -32,7 +32,10 @@ export default function Categories({ data }: { data: CategoriesProps }) {
 
   return (
     <>
-      <div id="categories" className="flex flex-col min-h-screen items-center py-12 bg-slate-50 overflow-hidden">
+      <div
+        id="categories"
+        className="flex flex-col min-h-screen items-center px-16 md:px-8 lg:px-0 py-12 bg-slate-50 overflow-hidden"
+      >
         {/* Header Section - Animated */}
         <motion.div
           className="text-center px-6 max-w-3xl"

@@ -27,10 +27,9 @@ export default function VisionMissionClient({ data }: { data: VisionMissionProps
   if (!data?.vision && !data?.mission) return null;
 
   return (
-    <section className="w-full py-16 bg-white">
-      <div className="container mx-auto px-6 lg:px-20">
-        {/* Changed lg:grid-cols-2 to lg:grid-cols-4 to create a 4-column grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 mx-12 lg:mx-0">
+    <section id="vision-mission" className="w-full py-16 bg-white">
+      <div className="container mx-auto px-16 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 lg:mx-0">
           {/* Vision */}
           {data.vision && (
             <motion.div
@@ -38,7 +37,6 @@ export default function VisionMissionClient({ data }: { data: VisionMissionProps
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              // Added lg:col-span-1 (takes up 1 part)
               className="lg:col-span-1 flex flex-col h-full p-8 rounded-2xl bg-slate-50 border border-slate-100 shadow-sm hover:shadow-md transition-shadow"
             >
               <div className="flex items-center gap-3 mb-6">
