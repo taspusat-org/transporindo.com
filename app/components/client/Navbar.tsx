@@ -60,6 +60,7 @@ export default function Navbar() {
   const formCopy = {
     en: {
       home: "Home",
+      visionMission: "Vision & Mission",
       whyUs: "Why Us",
       services: "Services",
       categories: "Categories",
@@ -70,6 +71,7 @@ export default function Navbar() {
     },
     id: {
       home: "Beranda",
+      visionMission: "Visi & Misi",
       whyUs: "Mengapa Kami",
       services: "Layanan",
       categories: "Kategori",
@@ -85,6 +87,7 @@ export default function Navbar() {
   const navLinks = useMemo(
     () => [
       { href: "#hero", label: t.home },
+      { href: "#vision-mission", label: t.visionMission },
       { href: "#why-us", label: t.whyUs },
       { href: "#services", label: t.services },
       { href: "#categories", label: t.categories },

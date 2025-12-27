@@ -54,6 +54,7 @@ function NavbarContent() {
   const formCopy = {
     en: {
       home: "Home",
+      visionMission: "Vision & Mission",
       whyUs: "Why Us",
       services: "Services",
       categories: "Categories",
@@ -64,6 +65,7 @@ function NavbarContent() {
     },
     id: {
       home: "Beranda",
+      visionMission: "Visi & Misi",
       whyUs: "Mengapa Kami",
       services: "Layanan",
       categories: "Kategori",
@@ -79,6 +81,7 @@ function NavbarContent() {
   const navLinks = useMemo(
     () => [
       { href: "/id#hero", label: t.home },
+      { href: "/id#vision-mission", label: t.visionMission },
       { href: "/id#why-us", label: t.whyUs },
       { href: "/id#services", label: t.services },
       { href: "/id#categories", label: t.categories },
