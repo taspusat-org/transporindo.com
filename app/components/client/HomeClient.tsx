@@ -14,7 +14,7 @@ type HomeClientProps = {
 export default function HomeClient({ data }: { data: HomeClientProps }) {
   return (
     <section className="bg-slate-50 overflow-hidden">
-      <div className="flex flex-col lg:flex-row items-center justify-between w-full py-24 lg:py-12">
+      <div className="flex flex-col lg:flex-row items-center justify-between w-full py-24 px-12 lg:py-12">
         {/* --- LEFT SIDE (Images) --- */}
         <motion.div
           className="w-full lg:w-1/2 flex justify-center items-center relative h-[300px] md:h-[400px]"
@@ -81,7 +81,7 @@ export default function HomeClient({ data }: { data: HomeClientProps }) {
           <div className="flex flex-col items-center lg:items-start">
             <span className="font-semibold text-center lg:text-left text-[23px]">{data?.title}</span>
             <br />
-            <span className="text-center lg:text-left">{data?.description}</span>
+            <span className="text-center lg:text-left md:mx-12 lg:mx-0">{data?.description}</span>
           </div>
         </motion.div>
       </div>

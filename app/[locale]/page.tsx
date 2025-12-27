@@ -13,6 +13,7 @@ import GlobalReachServer from "../components/server/GlobalReachServer";
 import TestimonialsServer from "../components/server/TestimonialsServer";
 import TrustedByServer from "../components/server/TrustedByServer";
 import { Inter } from "next/font/google";
+import VisionMissionServer from "../components/server/VisionMissionServer";
 
 const inter = Inter({ subsets: ["latin"], weight: ["400", "700"] });
 
@@ -29,6 +30,9 @@ export default function Page({ params }: { params: Promise<{ locale: string }> }
       </Suspense>
       <Suspense fallback={<div className="w-full h-80 bg-slate-50" />}>
         <Home params={params} />
+      </Suspense>
+      <Suspense fallback={<div className="w-full h-80 bg-slate-50" />}>
+        <VisionMissionServer params={params} />
       </Suspense>
       <Suspense fallback={<div className="w-full h-96 bg-red-100" />}>
         <WhyChooseUs params={params} />
